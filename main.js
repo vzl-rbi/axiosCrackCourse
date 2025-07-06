@@ -1,3 +1,5 @@
+//Global axios 
+axios.defaults.headers.common['x-Auth-Token'] = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30`;
 // Get Request
 getTodos = () => {
   // axios({
@@ -83,7 +85,71 @@ axios.post('https://jsonplaceholder.typicode.com/todos',{
 .catch(err => console.log(err));
 
 };
+//TRANSFORMING REQUEST AND RESPONSE
+transformResponse = () => {
+  const options = {
+    method: 'post',
+    url: 'https://jsonplaceholder.typicode.com/todos',
+    data: {
+      title: 'Hello World'
 
+    }, 
+    transformResponse:axios.defaults.transformResponse.concat( data => {
+      data.title = data.title.toUpperCase();
+      return data;
+    })
+
+  }
+  axios(options).then(res => showOutput(res))
+}
+
+//Error Handling
+errorHandler = () => {
+
+    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=2')
+  .then(res => showOutput(res))
+.catch(err => {
+  
+  if(err.response) {
+    //server respond with status other than 200
+    console.log(err.response.data);
+    console.log(err.response.status);
+    console.log(err.response.headers);
+
+  }
+  if(err.response.status === 404){
+    alert('Error: Page not found!!')
+  } else if(err.request) {
+    //request was made but no response
+    console.log(err.request);
+  } else {
+    console.error(err.message);
+  }
+
+});
+}
+//Cancell Token
+cancelToken = () => {
+  const source = axios.CancelToken.source();
+    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=2', {
+      cancelToken: source.token
+    })
+    .then(res => showOutput(res))
+    .catch(thrown => {
+      if(axios.isCancel(thrown)) {
+        console.log('Request is Cancelled', thrown.message)
+      }
+    });
+    if(true){
+      source.cancel('Request Cancelled')
+    }
+}
+//AXIOS INSTANCE
+const axiosInstance = axios.create({
+  baseURL: 'https://jsonplaceholder.typicode.com'
+
+});
+axiosInstance.get('/comments').then(res => showOutput(res)); //axiosInstance.get('/comments?_limit=2')
 //INTERCEPTING REQUEST AND RESPONSE
 axios.interceptors.request.use(config => {
   console.log(`${config.method.toUpperCase()}  request sent to ${config.url} at ${new Date().getTime()}`
@@ -135,3 +201,6 @@ document.getElementById('update').addEventListener('click', updateTodos);
 document.getElementById('delete').addEventListener('click', removeTodos);
 document.getElementById('sim').addEventListener('click', getData);
 document.getElementById('headers').addEventListener('click', customeHeader);
+document.getElementById('transform').addEventListener('click', transformResponse);
+document.getElementById('error').addEventListener('click', errorHandler);
+document.getElementById('cancel').addEventListener('click', cancelToken);
