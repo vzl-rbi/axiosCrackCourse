@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Learning Axios</title>
+  </head>
+  <body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+      <div class="text-center">
+        <h1 class="text-4xl font-bold text-center mb-6">Axios Crash Course</h1>
+        <div class="flex flex-wrap justify-center gap-3 mb-6">
+          <button
+            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            id="get"
+          >
+            GET
+          </button>
+          <button
+            class="px-4 py-2 bg-cyan-500 text-white rounded hover:bg-cyan-600"
+            id="post"
+          >
+            POST
+          </button>
+          <button
+            class="px-4 py-2 bg-amber-500 text-white rounded hover:bg-amber-600"
+            id="update"
+          >
+            PUT/PATCH
+          </button>
+          <button
+            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            id="delete"
+          >
+            DELETE
+          </button>
+          <button
+            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+            id="sim"
+          >
+            Sim Requests
+          </button>
+          <button
+            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+            id="headers"
+          >
+            Custom Headers
+          </button>
+          <button
+            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+            id="transform"
+          >
+            Transform
+          </button>
+          <button
+            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+            id="error"
+          >
+            Error Handling
+          </button>
+          <button
+            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+            id="cancel"
+          >
+            Cancel
+          </button>
+        </div>
+        <hr class="my-6 border-gray-300" />
+        <div id="res" class="mt-6"></div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
